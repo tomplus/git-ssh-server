@@ -1,12 +1,13 @@
-FROM arm32v7/ubuntu:16.04
+FROM arm32v6/alpine:3.5
 
-RUN apt-get update \
- && apt-get install -y openssh-server bash git vim lighttpd libcgi-pm-perl \
- && rm /etc/update-motd.d/* \
- && addgroup --gid 1000 git \
- && adduser --home /home/git --shell /bin/bash --uid 1000 --gid 1000 --gecos "" --disabled-password git \
+RUN apk add --no-cache openssh git vim lighttpd perl-cgi \
+ && addgroup -g 1000 git \
+ && adduser -h /home/git -s /bin/sh -u 1000 -G git -g "" -D git \
  && mkdir /var/run/sshd \
- && /usr/bin/ssh-keygen -A
+ && /usr/bin/ssh-keygen -A \
+ && echo "PasswordAuthentication no" > /etc/ssh/sshd_config \
+ && sed -i s/git:!/"git:*"/g /etc/shadow \
+ && echo "Welcome to your git server !" > /etc/motd
 
 ADD start.sh /start.sh
 
