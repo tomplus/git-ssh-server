@@ -13,7 +13,7 @@ $ cp ~/.ssh/id_rsa.pub ~/git-server/.ssh/authorized_keys
 $ sudo chown 1000:1000 -R ~/git-server
 $ sudo chmod 700 ~/git-server
 $ sudo chmod 700 ~/git-server/.ssh
-$ sudo chmod 600 ~/git-server/.ssh/authorized_keysi
+$ sudo chmod 600 ~/git-server/.ssh/authorized_keys
 ```
 
 ### Start image
@@ -47,3 +47,7 @@ To see sshd logs, attach to the container and start syslogd.
 syslogd
 tail -f /var/log/messages
 ```
+
+# ARM32v7
+
+Dedicated branch ARM32v7 contains Dockerfile for this architecutre.
